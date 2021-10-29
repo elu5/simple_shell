@@ -1,34 +1,115 @@
-General Bark
-General Bark is a shell on top of the Kernal, hence the title general. Its task is to wrap around the Kernal and make interaction more civil, hence the name Bark, like the tree bark. The general takes most of the basics of commands that are present in the bash shell and communicate them to the Kernal in a soldierly manner. This is shell is built as part of a learning C.
+Unix shell
 
-General works like the bash and other basic C shells, though it has some to be yet build features.
+A Unix shell is a command-line interpreter or shell that provides a command line user interface for Unix-like operating systems. The shell is both an interactive command language and a scripting language, and is used by the operating system to control the execution of the system using shell scripts.
 
-The General can be compiled with GCC >=4.8.5.
+Early shells
 
-Example of how to launch the shell after compiling:
-./gbk
+The first Unix shell was the Thompson shell, sh, written by Ken Thompson at Bell Labs and distributed with Versions 1 through 6 of Unix, from 1971 to 1975. Though rudimentary by modern standards, it introduced many of the basic features common to all later Unix shells, including piping, simple control structures using if and go to, and filename wildcarding. Though not in current use, it is still available as part of some Ancient UNIX systems.
 
-Output: prompt to terminal: cisfun$
-Syntax
-The shell works by using commands given by the user input. The shell commands take in the following syntax: command name {arguments}[;||&& other command]. The shell executes a command after it is written by user using the command followed by the arguments until all the commands in one line are complered
+The PWB shell or Mashey shell, sh, was an upward-compatible version of the Thompson shell, augmented by John Mashey and others and distributed with the Programmer's Workbench UNIX, circa 1975–1977.
 
-cat gbk.h The above example takes in a command by the user followed with the arguments. In this case the command is cat (to view file without opening file) followed by argument the file name in this case gbk.h.
+Bourne shell
 
-For more information on cat, you can use the man command which will show a manual of the given command or any command you wish to know more information on. It contains system calls, libraries and other important files.
+The Bourne shell, sh, was a new Unix shell by Stephen Bourne at Bell Labs. Distributed as the shell for UNIX Version 7 in 1979, it introduced the rest of the basic features considered common to all the Unix shells, including here documents, command substitution, more generic variables and more extensive built-in control structures
 
-Compilation and installation
-If you want a controlled install you can clone this repository to your local machine and compile all the c files using GCC, but if you are looking for a binary you can run just like any program, such as bash, you can get a detailed instruction here and also a downloading link.
+The POSIX standard specifies its standard shell as a strict subset of the Korn shell, an enhanced version of the Bourne shell. From a user's perspective the Bourne shell was immediately recognized when active by its characteristic default command line prompt character, the dollar sign ($).
 
-Builtins
-GBK also contains a couple of built-in functions, which are commands that are within the shell itself. Some of the built-ins are |----------|--------------------------------------------| |alias | to create aliases| |help | to get help on built-in functions | |cd | change working directories| |history | list of commands that have already been typed| |env and printenv | prints environmental variables| |set | sets new environmental variables| |exit | exit out of gbk| |unset | unsets envrionmental variables|
+C shell
 
-Exiting commands and the shell
-To exit out of a command or process the user can't use ctrl c. Control c (SIGINT) has been overiden to do nothing as in many shells so if one wants to kill a runnign process of GBK they will either have to use the exit command or send a SIGKILL signal from the parent process.
+The C shell, csh, was modeled on the C programming language, including the control structures and the expression grammar. It was written by Bill Joy as a graduate student at University of California, Berkeley, and was widely distributed with BSD Unix.
 
-The user can also utilize the command ctrl D which will just exit. When the command ctrl D is used an exit status of 0 is given. Using exit, you can input its exit status or it is defaulted to the status of the last command executed.
+Basic lifetime of a shell
 
-Files
-README.md : Current file, contains information about this project
-gbk.h : Header file, contains all prototypes for funcitons used, as well as libriaries
-help.h : Header file, contains all the macros for the help section
-generalbark.png: Image in the readme file
+Let’s look at a shell from the top down. A shell does three main things in its lifetime.
+
+•Initialize: In this step, a typical shell would read and execute its configuration files. These change aspects of the shell’s behavior.
+
+•Interpret: Next, the shell reads commands from stdin (which could be interactive, or a file) and executes them.
+
+•Terminate: After its commands are executed, the shell executes any shutdown commands, frees up any memory,
+
+Basic loop of a shell
+
+So, we’ve taken care of how the program should start up. Now, for the basic pro gram logic: what does the shell do during its loop? Well, a simple way to handl
+
+commands is with three steps:
+
+•Read: Read the command from standard input.
+
+•Parse: Separate the command string into a program and arguments.
+
+•Execute: Run the parsed command.
+
+Putting it all together
+
+That’s all the code that goes into the shell. If you’ve read along, you should understand completely how the shell works. To try it out (on a Linux machine), you would need to copy these code segments into a file (main.c), and compile it
+
+. Make sure to only include one implementation of lsh_read_line(). You’ll need to include the following headers at the top. I’ve added notes so that you know where each function comes from.
+
+• #include <sys/wait.h>
+
+o waitpid() and associated macros
+
+• #include <unistd.h>
+
+o chdir()
+
+o fork()
+
+o exec()
+
+o pid_t
+
+• #include <stdlib.h>
+
+o malloc()
+
+o realloc()
+
+o free()
+
+o exit()
+
+o execvp()
+
+o EXIT_SUCCESS, EXIT_FAILURE
+
+• #include <stdio.h>
+
+o fprintf()
+
+o printf()
+
+o stderr
+
+o getchar()
+
+o perror()
+
+• #include <string.h>
+
+o strcmp()
+
+o strtok()
+
+Other comparison operators you can use include:
+
+-eq – Equal to
+
+-ne – Not equal to
+
+-lt – Less than
+
+-le – Less than or equal to
+
+-lt – Less than
+
+-ge – Greater than or equal to
+
+Authors
+
+Eleni Aklilu  Github
+
+Kelbi Zerihun Github kelbizerihun3080@gmail.com
+
+simple_shell
