@@ -108,7 +108,7 @@ Other comparison operators you can use include:
 
 Authors
 
-Eleni Aklilu  Github
+Eleni Aklilu  Github eleni55aklilu@gmail.com
 
 Kelbi Zerihun Github kelbizerihun3080@gmail.com
 
